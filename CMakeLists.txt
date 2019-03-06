@@ -36,10 +36,8 @@ set(libSRC_LIST ${libSRC_LIST}
 ../XUtil/XApi.cpp
 )
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
+#设置输出位置
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 add_library( # Sets the name of the library.
         XController

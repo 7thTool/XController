@@ -13,6 +13,8 @@ private:
     std::map<std::string,void*> map_modules_;
     std::map<std::string,void*> map_handlers_;
     std::map<std::string,void*> map_datas_;
+    //std::map<std::thread::id,std::map<std::string,void*>> map_thread_handlers_;
+    //std::map<std::thread::id,std::map<std::string,void*>> map_thread_datas_;
     std::recursive_mutex mutex_;
 public:
     // void RegisterModule(const char* path)
@@ -20,62 +22,20 @@ public:
     //     //
     // }
 
-    void Start(int argc, const char* argv) 
-    {
-
-    }
-    void Stop()
-    {
-
-    }
+    void Start(int argc, const char* argv);
+    void Stop();
     
-    void SetHandler(const char* name, void* handler)
-    {
-        std::unique_lock <std::recursive_mutex> lock(mutex_);
-        if (handler) {
-            map_handlers_.erase(name);
-        } else {
-            map_handlers_[name] = handler;
-        }
-    }
+    void SetHandler(const char* name, void* handler);
+    void* GetHandler(const char* name);
 
-    void* GetHandler(const char* name)
-    {
-        std::unique_lock <std::recursive_mutex> lock(mutex_);
-        auto it = map_handlers_.find(name);
-        if(it != map_handlers_.end()) {
-            return it->second;
-        }
-        return nullptr;
-    }
+    void SetThreadHandler(const char* name, void* handler);
+    void* GetThreadHandler(const char* name);
 
-    void SetThreadHandler(const char* name, void* handler, size_t threadid)
-    {
+    void SetData(const char* name, void* data);
+    void* GetData(const char* name);
 
-    }
-
-    void* GetThreadHandler(const char* name, size_t threadid)
-    {
-        return nullptr;
-    }
-
-    void SetData(const char* name, void* data)
-    {
-
-    }
-    void* GetData(const char* name)
-    {
-        return nullptr;
-    }
-
-    void SetThreadData(const char* name, void* data, size_t threadid)
-    {
-
-    }
-    void* GetThreadData(const char* name, size_t threadid)
-    {
-        return nullptr;
-    }
+    void SetThreadData(const char* name, void* data);
+    void* GetThreadData(const char* name);
 };
 
 #endif//_H_XCONTROLLER_HPP_

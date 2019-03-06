@@ -27,14 +27,14 @@ XCONTROLLER_API void XController_Stop();
 XCONTROLLER_API void XController_SetHandler(const char* name, void* handler);
 XCONTROLLER_API void* XController_GetHandler(const char* name);
 
-XCONTROLLER_API void XController_SetThreadHandler(const char* name, void* handler, size_t threadid);
-XCONTROLLER_API void* XController_GetThreadHandler(const char* name, size_t threadid);
+XCONTROLLER_API void XController_SetThreadHandler(const char* name, void* handler);
+XCONTROLLER_API void* XController_GetThreadHandler(const char* name);
 
 XCONTROLLER_API void XController_SetData(const char* name, void* data);
 XCONTROLLER_API void* XController_GetData(const char* name);
 
-XCONTROLLER_API void XController_SetThreadData(const char* name, void* data, size_t threadid);
-XCONTROLLER_API void* XController_GetThreadData(const char* name, size_t threadid);
+XCONTROLLER_API void XController_SetThreadData(const char* name, void* data);
+XCONTROLLER_API void* XController_GetThreadData(const char* name);
 
 #if defined(__cplusplus)
 }
@@ -52,14 +52,14 @@ public:
     virtual void SetHandler(const char* name, void* handler) = 0;
     virtual void* GetHandler(const char* name) = 0;
 
-    virtual void SetThreadHandler(const char* name, void* handler, size_t threadid) = 0;
-    virtual void* GetThreadHandler(const char* name, size_t threadid) = 0;
+    virtual void SetThreadHandler(const char* name, void* handler) = 0;
+    virtual void* GetThreadHandler(const char* name) = 0;
 
     virtual void SetData(const char* name, void* data) = 0;
     virtual void* GetData(const char* name) = 0;
 
-    virtual void SetThreadData(const char* name, void* data, size_t threadid) = 0;
-    virtual void* GetThreadData(const char* name, size_t threadid) = 0;
+    virtual void SetThreadData(const char* name, void* data) = 0;
+    virtual void* GetThreadData(const char* name) = 0;
 };
 
 #endif//
