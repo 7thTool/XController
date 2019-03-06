@@ -6,22 +6,30 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 
-MESSAGE(STATUS "This is coding PROJECT BINARY dir " ${PROJECT_BINARY_DIR})
-MESSAGE(STATUS "This is coding CMAKE BINARY dir " ${CMAKE_BINARY_DIR})
-MESSAGE(STATUS "This is coding PROJECT SOURCE dir " ${PROJECT_SOURCE_DIR})
-MESSAGE(STATUS "This is coding CMAKE SOURCE dir " ${CMAKE_SOURCE_DIR})
+MESSAGE(STATUS "This is XController PROJECT BINARY dir " ${PROJECT_BINARY_DIR})
+MESSAGE(STATUS "This is XController CMAKE BINARY dir " ${CMAKE_BINARY_DIR})
+MESSAGE(STATUS "This is XController PROJECT SOURCE dir " ${PROJECT_SOURCE_DIR})
+MESSAGE(STATUS "This is XController CMAKE SOURCE dir " ${CMAKE_SOURCE_DIR})
 
-MESSAGE(STATUS "This is coding current BINARY dir " ${CMAKE_CURRENT_BINARY_DIR})
-MESSAGE(STATUS "This is coding current SOURCE dir " ${CMAKE_CURRENT_SOURCE_DIR})
-MESSAGE(STATUS "This is coding current CMAKE SOURCE dir " ${CMAKE_CURRENT_SOURCE_DIR})
-MESSAGE(STATUS "This is coding current CMakeList.txt dir " ${CMAKE_CURRENT_LIST_DIR})
-MESSAGE(STATUS "This is coding current CMakeList.txt line " ${CMAKE_CURRENT_LIST_LINE})
+MESSAGE(STATUS "This is XController current BINARY dir " ${CMAKE_CURRENT_BINARY_DIR})
+MESSAGE(STATUS "This is XController current SOURCE dir " ${CMAKE_CURRENT_SOURCE_DIR})
+MESSAGE(STATUS "This is XController current CMAKE SOURCE dir " ${CMAKE_CURRENT_SOURCE_DIR})
+MESSAGE(STATUS "This is XController current CMakeList.txt dir " ${CMAKE_CURRENT_LIST_DIR})
+MESSAGE(STATUS "This is XController current CMakeList.txt line " ${CMAKE_CURRENT_LIST_LINE})
 
-MESSAGE(STATUS "This is coding library output " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+MESSAGE(STATUS "This is XController library output " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 ADD_DEFINITIONS(-std=c++17)
 
-include_directories(../XUtil)
+if(BOOST_ROOT)
+set(Boost_INCLUDE_DIRS ${BOOST_ROOT}/bcpout)
+else()
+set(Boost_INCLUDE_DIRS ../../boost_1_66_0/bcpout)
+endif()
+include_directories(${Boost_INCLUDE_DIRS} ../../local ../include)
+
+#添加库文件搜索路径
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/bin)
 
 aux_source_directory(. libSRC_LIST)
 set(libSRC_LIST ${libSRC_LIST} 
@@ -37,17 +45,9 @@ add_library( # Sets the name of the library.
         XController
 
         # Sets the library as a shared library.
-        STATIC
-
-        # Provides a relative path to your source file(s).
-        ${libSRC_LIST}
-        )
-add_library( # Sets the name of the library.
-        XController
-
-        # Sets the library as a shared library.
         SHARED
 
         # Provides a relative path to your source file(s).
         ${libSRC_LIST}
         )
+TARGET_LINK_LIBRARIES(XController boost)

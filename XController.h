@@ -2,6 +2,7 @@
 #ifndef _H_XCONTROLLER_H_
 #define _H_XCONTROLLER_H_
 
+#include <stddef.h>
 #include <stdint.h>
 
 #ifdef WIN32
@@ -41,7 +42,7 @@ XCONTROLLER_API void* XController_GetThreadData(const char* name, size_t threadi
 class XController
 {
 public:
-    static XController& instance();
+    static XController& Instance();
     
     //virtual void RegisterModule(const char* path) = 0;
 

@@ -3,9 +3,11 @@
 #define _H_XCONTROLLER_HPP_
 
 #include "XController.h"
-#include <XUtil/XUtil.hpp>
+#include <XUtil/XApi.hpp>
 
-class XControllerImpl : public XController
+class XControllerImpl 
+: public XUtil::XApi
+, public XController
 {
 private:
     std::map<std::string,void*> map_modules_;
@@ -18,7 +20,7 @@ public:
     //     //
     // }
 
-    void Start() 
+    void Start(int argc, const char* argv) 
     {
 
     }
@@ -29,7 +31,7 @@ public:
     
     void SetHandler(const char* name, void* handler)
     {
-        std::unique_lock <std::mutex> lock(mutex_);
+        std::unique_lock <std::recursive_mutex> lock(mutex_);
         if (handler) {
             map_handlers_.erase(name);
         } else {
@@ -39,7 +41,7 @@ public:
 
     void* GetHandler(const char* name)
     {
-        std::unique_lock <std::mutex> lock(mutex_);
+        std::unique_lock <std::recursive_mutex> lock(mutex_);
         auto it = map_handlers_.find(name);
         if(it != map_handlers_.end()) {
             return it->second;
